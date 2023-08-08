@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DARUL ARQAM ISLAMIC PRE SCHOOL</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <section class="w3l-signup">
+        <div class="overlay">
+            <div class="wrapper">
+                <div class="logo">
+                    <a class="brand-logo" href="index.html">IHYAUSUNNIYYA MADRASA</a>
+                </div>
+                <div class="form-section">
+                    <h3>Apply Now</h3>
+                    <form id="submit-form" action="" class="signin-form">
+                        <div id="step1">
+                            <div class="form-input">
+                                <input type="text" class="form-control" id="name" name="name" required
+                                    placeholder="പേര് ">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select class="form-control" id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">ആൺകുട്ടി</option>
+                                    <option value="Female">പെൺകുട്ടി</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select class="form-control" id="category" name="category" required>
+                                    <option value="">നിങ്ങളുടെ ക്ലാസ് തിരഞ്ഞെടുക്കുക</option>
+                                    <option value="1">1, 2 CLASSES (KIDDIES)</option>
+                                    <option value="2">3, 4 CLASSES (SUB-JUNIOR)</option>
+                                    <option value="3">5, 6 (JUNIOR)</option>
+                                    <option value="4">7, 8 (SENIOR)</option>
+                                    <option value="5">9 10 (SUPER-SENIOR)</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="next1">Next</button>
+                        </div>
+                        <div id="step2" style="display: none;">
+                            <h5>Programs</h5>
+                            <p></p>
+                            <div id="programs" class="form-group">
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-secondary" id="prev2">Previous</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            const programsByCategory = {
+                '1': { 'Male': ['ഇസ്ലാമിക ഗാനം മലയാളം', 'കഥാകഥനം(Story Telling)', 'ചിത്രരചന ( ക്രയോൺ)'], 'Female': ['kk', 'll'] },
+                '2': { 'Male': ['ഖിറാഅത്', 'ഹിഫ്ള്','മദ്ഹുന്നബി ഗാനം','സമൂഹഗാനം മലയാളം','കയ്യെഴുത്ത് അറബി മലയാളം','പെൻസിൽ ഡ്രോയിങ്','ഓർമ്മ പരിശോധന','ക്വിസ്'], 'Female': ['കയ്യെഴുത്ത് അറബി മലയാളം', 'കഥാ രചന','പെൻസിൽ ഡ്രോയിങ്'] },
+                '3': { 'Male': ['ഖിറാഅത്ത്', 'ഹിഫ്ള്','ബാങ്ക് ','മലയാള പ്രസംഗം','അറബി ഗാനം','ഇസ്ലാമിക ഗാനം മലയാളം','ഇസ്ലാമിക സമൂഹ ഗാനം മലയാളം','മാപ്പിളപ്പാട്ട്','ഉറുദുഗാനം','അറബി കൈയെഴുത്ത്','ചിത്രരചന (വാട്ടർ കളർ )','ക്വിസ്'], 'Female': ['കയ്യെഴുത്ത് അറബി മലയാളം ', 'കൊളാഷ്','ചിത്രരചന'] },
+                '4': { 'Male': ['ഖിറാഅത്ത്', 'ഹിഫ്ള്','ബാങ്ക്','മലയാള പ്രസംഗം','ഇസ്ലാമിക അറബി ഗാനം','ഇസ്ലാമിക ഗാനം മലയാളം','ഇംഗ്ലീഷ് പ്രസംഗം ','ഉറുദു പ്രസംഗം','മാപ്പിളപ്പാട്ട്','പോസ്റ്റർ രചന','അറബിക് കാലിഗ്രഫി','ക്വിസ്'], 'Female': ['ഏഴാം ക്ലാസുകാർക്കുള്ള പരിപാടികൾ: ','കയ്യെഴുത്ത് അറബി മലയാളം ', 'കൊളാഷ്','ചിത്രരചന','8 ക്ലാസിലെ കുട്ടികൾക്കുള്ള പരിപാടികൾ:','പോസ്റ്റർ രചന','അറബിക് കാലിഗ്രഫി','ചിത്രത്തുന്നൽ','കവിതാരചന'] },
+                '5': { 'Male': ['ഖിറാഅത്ത്', 'ഹിഫ്ള്','ബാങ്ക്','അറബി പ്രസംഗം','മലയാള പ്രസംഗം','ഇസ്ലാമിക ഗാനം അറബി','ഇസ്ലാമിക ഗാനം മലയാളം','പാടിപ്പറയൽ','മാപ്പിളപ്പാട്ട്','മലയാളം പ്രബന്ധം','വാർത്താ വായന','അറബി പദപ്പയറ്റ്','അറബിക് കാലിഗ്രഫി',], 'Female': ['പോസ്റ്റർ രചന','അറബിക് കാലിഗ്രഫി','ചിത്രത്തുന്നൽ','കവിതാരചന'] },
+            };
+
+            let currentStep = 1;
+
+            function showStep(step) {
+                $('#step1, #step2').hide();
+                $('#step' + step).show();
+            }
+
+            function generateProgramCheckboxes(category, gender) {
+                const programs = programsByCategory[category][gender];
+                $('#programs').empty();
+                programs.forEach(program => {
+                    const checkbox = `<div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="programs[]" value="${program}" id="${program.replace(/\s+/g, '-').toLowerCase()}">
+                                        <label class="form-check-label" for="${program.replace(/\s+/g, '-').toLowerCase()}">${program}</label>
+                                      </div>`;
+                    $('#programs').append(checkbox);
+                });
+            }
+
+            $('#next1').click(function () {
+                const selectedCategory = $('#category').val();
+                const selectedGender = $('#gender').val();
+                generateProgramCheckboxes(selectedCategory, selectedGender);
+
+                currentStep = 2;
+                showStep(currentStep);
+            });
+
+            $('#prev2').click(function () {
+                currentStep = 1;
+                showStep(currentStep);
+            });
+
+            showStep(currentStep);
+
+            $("#submit-form").submit((e) => {
+                e.preventDefault();
+                $.ajax({
+                    url: "https://script.google.com/macros/s/AKfycbwalYFasPen8m680ewM3CT1PsiHOKD1s4zZYhx6xEVHUDIZwQtYDwUPAfrP-jhHPsQE/exec",
+                    data: $("#submit-form").serialize(),
+                    method: "post",
+                    success: function (response) {
+                        alert("Form submitted successfully");
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        alert("Something went wrong");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
